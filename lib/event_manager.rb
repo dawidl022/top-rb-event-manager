@@ -2,6 +2,10 @@ require 'csv'
 
 DATA_FILE_NAME = 'event_attendees.csv'
 
+def clean_zipcode(zipcode)
+  zipcode.to_s[0, 5].rjust(5, "0")
+end
+
 puts "Event Manager Initialised!\n\n"
 
 if !File.exist?(DATA_FILE_NAME)
@@ -18,6 +22,7 @@ contents = CSV.open(
 
 contents.each do |row|
   name = row[:first_name]
-  zipcode = row[:zipcode]
+  zipcode = clean_zipcode(row[:zipcode])
+
   puts "#{name} #{zipcode}"
 end
